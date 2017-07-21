@@ -18,7 +18,7 @@ If using Laravel 5, include the service provider within your `config/app.php` fi
 ];
 ```
 
-Next you must register the `VerifyMailgun` middleware in your `app\Http\Kernel.php` file.
+Next you must register the `VerifyMailgun` middleware in your `app/Http/Kernel.php` file.
 
 ```php
 protected $routeMiddleware = [
