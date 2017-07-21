@@ -1,0 +1,17 @@
+{
+    "name": "malcolmknott/mailgunwebhooks",
+    "description": "Mailgun webhook events",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Malcolm Knott",
+            "email": "malcolm.knott@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Malcolmknott\\MailgunWebhooks\\": "src"
+        }
+    },
+    "require": {}
+}
