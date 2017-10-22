@@ -4,9 +4,10 @@ namespace Malcolmknott\MailgunWebhooks;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MailgunEvent extends Model
+class MailgunTrackingEvent extends Model
 {
     protected $guarded = [];
+
 
     /**
      * Remove < > from message id.
@@ -19,8 +20,9 @@ class MailgunEvent extends Model
         $this->attributes['message_id'] = preg_replace('/[<>]/', '', $value);
     }
 
-    public function trackingEvents()
+
+    public function events()
     {
-        return $this->hasMany(\Malcolmknott\MailgunWebhooks\MailgunTrackingEvent::class);
+        return $this->belongsTo(\Malcolmknott\MailgunWebhooks\MailgunEvent::class);
     }
 }

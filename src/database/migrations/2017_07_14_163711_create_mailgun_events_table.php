@@ -24,15 +24,6 @@ class CreateMailgunEventsTable extends Migration
             $table->text('custom_variables')->nullable();
             $table->text('message_headers')->nullable();
 
-            $table->string('city')->nullable();
-            $table->string('region')->nullable();
-            $table->string('country')->nullable();
-            $table->string('device_type')->nullable();
-            $table->string('client_name')->nullable();
-            $table->string('user_agent')->nullable();
-            $table->string('client_os')->nullable();
-            $table->string('client_type')->nullable();
-
             $table->string('code')->nullable();
             $table->string('error')->nullable();
             $table->string('notification')->nullable();

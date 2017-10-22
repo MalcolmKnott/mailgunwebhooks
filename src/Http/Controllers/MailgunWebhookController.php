@@ -5,10 +5,10 @@ namespace Malcolmknott\MailgunWebhooks\Http\Controllers;
 use Mail;
 use App\User;
 use Validator;
-use Malcolmknott\MailgunWebhooks\MailgunEvent;
 use Illuminate\Http\Request;
-use App\Mail\TestMarkdownEmail;
 use App\Http\Controllers\Controller;
+use Malcolmknott\MailgunWebhooks\MailgunEvent;
+use Malcolmknott\MailgunWebhooks\MailgunTrackingEvent;
 
 class MailgunWebhookController extends Controller
 {
@@ -88,8 +88,12 @@ class MailgunWebhookController extends Controller
      */
     public function handleOpened(Request $request, $user_id)
     {
-        MailgunEvent::create([
-                'user_id' => $user_id,
+        $mailgun_event = MailgunEvent::where('message_id', request('message-id'))
+                            ->where('recipient', request('recipient'))
+                            ->first();
+
+        MailgunTrackingEvent::create([
+                'mailgun_event_id' => $mailgun_event ? $mailgun_event->id : null,
                 'message_id' => request('message-id'),
                 'event' => request('event'),
                 'recipient' => request('recipient'),
@@ -116,8 +120,12 @@ class MailgunWebhookController extends Controller
      */
     public function handleClicked(Request $request, $user_id)
     {
-        MailgunEvent::create([
-                'user_id' => $user_id,
+        $mailgun_event = MailgunEvent::where('message_id', request('message-id'))
+                            ->where('recipient', request('recipient'))
+                            ->first();
+
+        MailgunTrackingEvent::create([
+                'mailgun_event_id' => $mailgun_event ? $mailgun_event->id : null,
                 'message_id' => request('message-id'),
                 'event' => request('event'),
                 'recipient' => request('recipient'),
@@ -156,20 +164,16 @@ class MailgunWebhookController extends Controller
      */
     public function handleComplained(Request $request)
     {
+        $headers = $this->mapHeadersToArray(request('message-headers'));
+
         MailgunEvent::create([
                 'user_id' => $user_id,
                 'message_id' => request('Message-Id'),
                 'event' => request('event'),
                 'recipient' => request('recipient'),
                 'domain' => request('domain'),
-                'city' => request('city'),
-                'region' => request('region'),
-                'country' => request('country'),
-                'device_type' => request('device-type'),
-                'client_name' => request('client-name'),
-                'user_agent' => request('user-agent'),
-                'client_os' => request('client-os'),
-                'client_type' => request('client-type'),
+                'subject' => $headers['Subject'],
+                'message_headers' => request('message-headers'),
             ]);
 
         return response('Complained webhooked handled', 200);

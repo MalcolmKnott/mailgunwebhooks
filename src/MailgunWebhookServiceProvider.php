@@ -15,6 +15,8 @@ class MailgunWebhookServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/routes.php');
 
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'mailgunwebhook');
+
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
@@ -26,5 +28,6 @@ class MailgunWebhookServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->make('Malcolmknott\MailgunWebhooks\Http\Controllers\MailgunWebhookController');
+        $this->app->make('Malcolmknott\MailgunWebhooks\Http\Controllers\MailgunLogController');
     }
 }
