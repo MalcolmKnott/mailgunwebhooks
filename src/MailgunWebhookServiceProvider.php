@@ -20,7 +20,7 @@ class MailgunWebhookServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
         $this->publishes([
-            __DIR__.'/resources/views' => base_path('resources/views/vendor'),
+            __DIR__.'/resources/views' => base_path('resources/views/vendor/mailgunwebhook'),
         ], 'views');
     }
 
