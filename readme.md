@@ -1,6 +1,6 @@
 # Laravel package to handle webhooks from Mailgun
 
-This composer package handles webhooks from Mailgun saving them to mailgun_events table in your database.
+This composer package handles webhooks from Mailgun creating a log of sent mail with tracking events.
 
 ## Installation
 
@@ -26,7 +26,7 @@ protected $routeMiddleware = [
 ];
 ```
 
-Run the migration for the `mailgun_events` table.
+Run the migration to create tables.
 
 ```bash
 php artisan migrate
@@ -38,3 +38,24 @@ Log into your Mailgun account and update the webhook urls to [your-domain]/mailg
 https://app.mailgun.com/app/webhooks
 
 You will need to turn on click and open tracking in the domains section of Mailgun admin.
+
+## Frontend / View
+
+If you have a new project scaffold the basic login and registration views to pull in Boostrap.
+Or publish the view file to use your own layout.
+
+```bash
+php artisan make:auth
+```
+
+Publish the view file to change the format and add your own style.
+
+```bash
+php artisan vendor:publish --provider="Malcolmknott\MailgunWebhooks\MailgunWebhookServiceProvider" --tag="views"
+```
+
+Add a route that points to the Mailgun Log Controller, you'll probably want to add some middleware to restrict who can view your log.
+
+```php
+Route::get('display-log', '\Malcolmknott\Mailgunwebhooks\Http\Controllers\MailgunLogController@index');
+```
