@@ -162,7 +162,7 @@ class MailgunWebhookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
-    public function handleComplained(Request $request)
+    public function handleComplained(Request $request, $user_id)
     {
         $headers = $this->mapHeadersToArray(request('message-headers'));
 

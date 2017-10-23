@@ -25,7 +25,7 @@ class CreateMailgunEventsTable extends Migration
             $table->text('message_headers')->nullable();
 
             $table->string('code')->nullable();
-            $table->string('error')->nullable();
+            $table->text('error')->nullable();
             $table->string('notification')->nullable();
             $table->string('mailing_list')->nullable();
 
