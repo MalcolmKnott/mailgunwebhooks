@@ -25,7 +25,7 @@ class CreateMailgunTrackingEventsTable extends Migration
             $table->string('country')->nullable();
             $table->string('device_type')->nullable();
             $table->string('client_name')->nullable();
-            $table->string('user_agent')->nullable();
+            $table->text('user_agent')->nullable();
             $table->string('client_os')->nullable();
             $table->string('client_type')->nullable();
             $table->timestamps();
